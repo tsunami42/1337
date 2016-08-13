@@ -1,0 +1,27 @@
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(majorityElement([]int{1, 2, 3, 42, 2, 2, 2, 2, 2}))
+}
+
+func majorityElement(nums []int) int {
+	intmap := make(map[int]*int, len(nums)+1)
+	for _, n := range nums {
+		if _, ok := intmap[n]; !ok {
+			intmap[n] = new(int)
+		}
+		*(intmap[n])++
+	}
+
+	limit := len(nums) >> 1
+	result := 0
+	for n, cnt := range intmap {
+		if *cnt > limit {
+			result = n
+			break
+		}
+	}
+	return result
+}
